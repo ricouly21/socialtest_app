@@ -7,7 +7,13 @@
 //
 
 import UIKit
+import Fabric
+import Twitter
+import TwitterKit
+import TwitterCore
 import FBSDKCoreKit
+import FBSDKLoginKit
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        // Initialize Google Sign-In
+        var error: NSError?
+        GGLContext.sharedInstance().configureWithError(&error)
+        assert(error == nil, "Error configuring Google Services: \(error)")
         
         return true
     }
@@ -50,7 +61,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         
-        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+        let fbsdkApplicationDelegate = FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+        let gidSignInDelegate = GIDSignIn.sharedInstance().handleURL(url, sourceApplication: sourceApplication, annotation: annotation)
+        
+        return fbsdkApplicationDelegate && gidSignInDelegate
     }
 
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0DB0DD6691A5A7D74F602A1A /* Pods_SocialTestUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E73C3F4263BF29EF94410BD6 /* Pods_SocialTestUITests.framework */; };
 		16767A171D78B5A900C35999 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16767A161D78B5A900C35999 /* ProfileViewController.swift */; };
+		167F131C1D948DDD00D38DB5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 167F131B1D948DDD00D38DB5 /* GoogleService-Info.plist */; };
 		1690E15E1D4AC0A600C2D715 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1690E15D1D4AC0A600C2D715 /* AppDelegate.swift */; };
 		1690E1601D4AC0A600C2D715 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1690E15F1D4AC0A600C2D715 /* ViewController.swift */; };
 		1690E1631D4AC0A600C2D715 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1690E1611D4AC0A600C2D715 /* Main.storyboard */; };
@@ -41,6 +42,8 @@
 		08B3EDFCCF8C92498AAFBD42 /* Pods-SocialTestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialTestTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SocialTestTests/Pods-SocialTestTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1655F4905507FF37A59C0198 /* Pods-SocialTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SocialTest/Pods-SocialTest.debug.xcconfig"; sourceTree = "<group>"; };
 		16767A161D78B5A900C35999 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		167F13181D94865200D38DB5 /* SocialTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SocialTest-Bridging-Header.h"; sourceTree = "<group>"; };
+		167F131B1D948DDD00D38DB5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1690E15A1D4AC0A600C2D715 /* SocialTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1690E15D1D4AC0A600C2D715 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1690E15F1D4AC0A600C2D715 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -122,7 +125,9 @@
 				1690E1611D4AC0A600C2D715 /* Main.storyboard */,
 				1690E1641D4AC0A600C2D715 /* Assets.xcassets */,
 				1690E1661D4AC0A600C2D715 /* LaunchScreen.storyboard */,
+				167F131B1D948DDD00D38DB5 /* GoogleService-Info.plist */,
 				1690E1691D4AC0A600C2D715 /* Info.plist */,
+				167F13181D94865200D38DB5 /* SocialTest-Bridging-Header.h */,
 			);
 			path = SocialTest;
 			sourceTree = "<group>";
@@ -281,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1690E1681D4AC0A600C2D715 /* LaunchScreen.storyboard in Resources */,
+				167F131C1D948DDD00D38DB5 /* GoogleService-Info.plist in Resources */,
 				1690E1651D4AC0A600C2D715 /* Assets.xcassets in Resources */,
 				1690E1631D4AC0A600C2D715 /* Main.storyboard in Resources */,
 			);
@@ -580,6 +586,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.directworksmobile.SocialTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SocialTest/SocialTest-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -593,6 +600,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.directworksmobile.SocialTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SocialTest/SocialTest-Bridging-Header.h";
 			};
 			name = Release;
 		};

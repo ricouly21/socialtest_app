@@ -9,16 +9,16 @@
 import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
+import TwitterKit
+import Kingfisher
 
-class ViewController: UIViewController, FBSDKLoginButtonDelegate {
+
+class ViewController: UIViewController, FBSDKLoginButtonDelegate, GIDSignInUIDelegate, GIDSignInDelegate {
     
     @IBAction func returnToLogin(segue: UIStoryboardSegue) {}
-    
-    let loginButton = FBSDKLoginButton()
-    
-    let loaderView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-    
-    var profileName = String()
+    @IBOutlet var fbLoginButton: FBSDKLoginButton!
+    @IBOutlet var twtrLoginButton: TWTRLogInButton!
+    @IBOutlet var gidSignInButton: GIDSignInButton!
     
     
     // FBSDK login button delegates
@@ -33,49 +33,77 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         
-        self.loginButton.hidden = true
-        self.view.addSubview(self.loaderView)
-        
-        FBSDKProfile.loadCurrentProfileWithCompletion { (profile, error) in
+        if error == nil {
+            self.fbLoginButton.hidden = true
             
-            if profile != nil {
+            FBSDKProfile.loadCurrentProfileWithCompletion { (profile, error) in
                 
-                self.profileName = profile.name
+                if error == nil && profile != nil {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.performSegueWithIdentifier("toProfileViewController", sender: self)
+                    })
+                    
+                }
                 
-                self.performSegueWithIdentifier("toProfileViewController", sender: self)
+                self.fbLoginButton.hidden = false
                 
-            } else {
-                dispatch_async(dispatch_get_main_queue(), { 
-                    self.loaderView.removeFromSuperview()
-                    self.loginButton.hidden = false
-                })
             }
         }
         
     }
     
+    // Google Sign-In delegates
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let vc = segue.destinationViewController as? ProfileViewController {
-            vc.profileName = self.profileName
+    func signInWillDispatch(signIn: GIDSignIn!, error: NSError!) {
+        
+    }
+    
+    func signIn(signIn: GIDSignIn!, dismissViewController viewController: UIViewController!) {
+        self.dismissViewControllerAnimated(true) {
+            
         }
     }
+    
+    func signIn(signIn: GIDSignIn!, presentViewController viewController: UIViewController!) {
+        self.presentViewController(viewController, animated: true) { }
+    }
+    
+    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError!) {
+        if error == nil {
+            if let profile: GIDProfileData = user.profile {
+                print(profile.email)
+                print(profile.familyName)
+                print(profile.givenName)
+                print(profile.name)
+                print(profile.imageURLWithDimension(1080))
+            }
+        } else {
+            print(error)
+        }
+    }
+    
+    func signIn(signIn: GIDSignIn!, didDisconnectWithUser user: GIDGoogleUser!, withError error: NSError!) {
+        
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.loaderView.center = self.view.center
-        self.loaderView.startAnimating()
+        GIDSignIn.sharedInstance().signOut()
         
-        self.loginButton.center = self.view.center
-        self.view.addSubview(self.loginButton)
+        self.fbLoginButton.setAttributedTitle(NSAttributedString(string: "Facebook"), forState: .Normal)
+        self.fbLoginButton.delegate = self
+        self.fbLoginButton.readPermissions = ["public_profile", "email", "user_friends"]
         
+        self.twtrLoginButton.enabled = false
         
-        self.loginButton.delegate = self
-        self.loginButton.readPermissions = ["public_profile", "email", "user_friends"]
+        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().delegate = self
+        
+        self.gidSignInButton.style = .Wide
         
     }
-
 
 }
 

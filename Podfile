@@ -12,6 +12,8 @@ target 'SocialTest' do
   pod 'FBSDKShareKit'
   pod 'TwitterKit'
   pod 'TwitterCore'
+  pod 'Kingfisher'
+  pod 'Alamofire'
 
   target 'SocialTestTests' do
     inherit! :search_paths
