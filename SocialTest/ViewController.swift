@@ -20,6 +20,12 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate, GIDSignInUIDel
     @IBOutlet var twtrLoginButton: TWTRLogInButton!
     @IBOutlet var gidSignInButton: GIDSignInButton!
     
+    var user = User()
+    
+    var userData = [String: AnyObject]()
+    
+    
+    
     
     // FBSDK login button delegates
 
@@ -39,9 +45,37 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate, GIDSignInUIDel
             FBSDKProfile.loadCurrentProfileWithCompletion { (profile, error) in
                 
                 if error == nil && profile != nil {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.performSegueWithIdentifier("toProfileViewController", sender: self)
-                    })
+                    
+                    let profileImageURL = profile.imageURLForPictureMode(.Normal, size: CGSize(width: 1080, height: 1080))
+                    
+                    let request = FBSDKGraphRequest(graphPath: "me",
+                        parameters: ["fields": "id, name, first_name, last_name, email, gender, link"],
+                        tokenString: FBSDKAccessToken.currentAccessToken().tokenString,
+                        version: nil,
+                        HTTPMethod: "GET")
+                    
+                    request.startWithCompletionHandler { (connection, result, error) in
+                        if error == nil {
+                            
+                            self.userData = [
+                                "id": "",
+                                "social_id": profile.userID,
+                                "name": profile.name,
+                                "last_name": profile.lastName,
+                                "first_name": profile.firstName,
+                                "gender": result["gender"] as! String,
+                                "email": result["email"] as! String,
+                                "profile_image": profileImageURL.absoluteString,
+                                "social_media": "facebook",
+                            ]
+                            
+                            self.user = User(data: self.userData)
+                            
+                            dispatch_async(dispatch_get_main_queue(), {
+                                self.performSegueWithIdentifier("toProfileViewController", sender: "facebook")
+                            })
+                        }
+                    }
                     
                 }
                 
@@ -59,9 +93,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate, GIDSignInUIDel
     }
     
     func signIn(signIn: GIDSignIn!, dismissViewController viewController: UIViewController!) {
-        self.dismissViewControllerAnimated(true) {
-            
-        }
+        self.dismissViewControllerAnimated(true) { }
     }
     
     func signIn(signIn: GIDSignIn!, presentViewController viewController: UIViewController!) {
@@ -71,11 +103,24 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate, GIDSignInUIDel
     func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError!) {
         if error == nil {
             if let profile: GIDProfileData = user.profile {
-                print(profile.email)
-                print(profile.familyName)
-                print(profile.givenName)
-                print(profile.name)
-                print(profile.imageURLWithDimension(1080))
+                self.userData = [
+                    "id": "",
+                    "social_id": user.userID,
+                    "name": profile.name,
+                    "last_name": profile.familyName,
+                    "first_name": profile.givenName,
+                    "email": profile.email,
+                    "gender": "",
+                    "profile_image": profile.imageURLWithDimension(1080).absoluteString,
+                    "social_media": "google",
+                ]
+                
+                self.user = User(data: self.userData)
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.performSegueWithIdentifier("toProfileViewController", sender: "google")
+                })
+                
             }
         } else {
             print(error)
@@ -87,9 +132,19 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate, GIDSignInUIDel
     }
     
     
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let vc = segue.destinationViewController as? ProfileViewController {
+            vc.user = self.user
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        FBSDKLoginManager().logOut()
         GIDSignIn.sharedInstance().signOut()
         
         self.fbLoginButton.setAttributedTitle(NSAttributedString(string: "Facebook"), forState: .Normal)

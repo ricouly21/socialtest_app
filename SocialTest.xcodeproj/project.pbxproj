@@ -17,6 +17,7 @@
 		1690E1681D4AC0A600C2D715 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1690E1661D4AC0A600C2D715 /* LaunchScreen.storyboard */; };
 		1690E1731D4AC0A600C2D715 /* SocialTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1690E1721D4AC0A600C2D715 /* SocialTestTests.swift */; };
 		1690E17E1D4AC0A600C2D715 /* SocialTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1690E17D1D4AC0A600C2D715 /* SocialTestUITests.swift */; };
+		16C627DD1D9587440075AA9D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C627DC1D9587440075AA9D /* User.swift */; };
 		53CA2F93E443D39BE95DB3E4 /* Pods_SocialTestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 781B94FBC01F7283BC99D4A8 /* Pods_SocialTestTests.framework */; };
 		BFC5E7782567C448617DB737 /* Pods_SocialTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75C2A5A92EC29AE134273DCC /* Pods_SocialTest.framework */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		1690E1791D4AC0A600C2D715 /* SocialTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SocialTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1690E17D1D4AC0A600C2D715 /* SocialTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTestUITests.swift; sourceTree = "<group>"; };
 		1690E17F1D4AC0A600C2D715 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		16C627DC1D9587440075AA9D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		36AF5FFCCE0D3C4AAFC32531 /* Pods-SocialTestUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialTestUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SocialTestUITests/Pods-SocialTestUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		37BC4F4C610DE19429B85AEB /* Pods-SocialTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-SocialTest/Pods-SocialTest.release.xcconfig"; sourceTree = "<group>"; };
 		75C2A5A92EC29AE134273DCC /* Pods_SocialTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +130,7 @@
 				167F131B1D948DDD00D38DB5 /* GoogleService-Info.plist */,
 				1690E1691D4AC0A600C2D715 /* Info.plist */,
 				167F13181D94865200D38DB5 /* SocialTest-Bridging-Header.h */,
+				16C627DC1D9587440075AA9D /* User.swift */,
 			);
 			path = SocialTest;
 			sourceTree = "<group>";
@@ -436,6 +439,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16C627DD1D9587440075AA9D /* User.swift in Sources */,
 				16767A171D78B5A900C35999 /* ProfileViewController.swift in Sources */,
 				1690E1601D4AC0A600C2D715 /* ViewController.swift in Sources */,
 				1690E15E1D4AC0A600C2D715 /* AppDelegate.swift in Sources */,
